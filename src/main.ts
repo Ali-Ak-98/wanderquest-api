@@ -6,7 +6,7 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: 'http://localhost:3001', // Allow specific domain (replace with your frontend URL)
+    origin: ['http://localhost:3001','https://wanderquest-26648daeef49.herokuapp.com'], // Allow specific domain (replace with your frontend URL)
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
     allowedHeaders: 'Content-Type, Authorization', // Allowed headers
   });
