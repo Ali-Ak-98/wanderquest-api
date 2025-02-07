@@ -1,99 +1,172 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# WanderQuest API Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The WanderQuest API serves as the backend for the WanderQuest platform, providing endpoints to retrieve city data from a JSON file and serve it to the frontend application. This API is built using the [NestJS](https://nestjs.com/) framework, leveraging TypeScript for robust and scalable server-side applications.
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **City Data Retrieval**: Reads city data from a JSON file and provides a REST API to serve it.
+- **User Authentication**: Handles user registration, login, and authentication.
+- **Efficient Data Management**: Optimized endpoints for fetching city-related data.
+- **Testing**: Comprehensive testing setup using Jest.
 
-## Project setup
+## Tech Stack
+
+- **Framework**: NestJS
+- **Language**: TypeScript
+- **Data Source**: JSON file stored in the `data` folder
+- **Testing**: Jest
+
+## Installation
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js (v18+ recommended)
+- npm or yarn
+
+### Clone the Repository
 
 ```bash
-$ npm install
+git clone https://github.com/Ali-Ak-98/wanderquest-api.git
+cd wanderquest-api
 ```
 
-## Compile and run the project
+### Install Dependencies
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install  # or yarn install
 ```
 
-## Run tests
+### Environment Variables
+
+Create a `.env` file in the root directory and configure the following variables:
+
+```env
+PORT=your_preferred_port
+```
+
+- **PORT**: Port on which the server will run (default is 3000).
+
+### Running the Application
 
 ```bash
-# unit tests
-$ npm run test
+# Development
+npm run start
 
-# e2e tests
-$ npm run test:e2e
+# Watch mode
+npm run start:dev
 
-# test coverage
-$ npm run test:cov
+# Production
+npm run start:prod
+```
+
+The API will be accessible at `http://localhost:3000` by default.
+
+## Project Structure
+
+```
+/wanderquest-api
+├── .github/           # GitHub configuration files
+│   └── workflows/     # GitHub Actions workflows
+├── src/               # Source code
+│   ├── data/          # JSON file containing city data
+│   ├── modules/       # Application modules
+│   ├── controllers/   # Controllers for handling requests
+│   ├── services/      # Services containing business logic
+│   ├── dtos/          # Data Transfer Objects
+│   └── main.ts        # Entry point of the application
+├── test/              # Test files
+├── .gitignore         # Git ignore file
+├── .prettierrc        # Prettier configuration
+├── README.md          # Project README
+├── package.json       # Package manifest
+├── tsconfig.json      # TypeScript configuration
+└── nest-cli.json      # NestJS CLI configuration
+```
+
+## API Endpoints
+
+### Get All Cities
+
+```http
+GET /cities
+```
+This endpoint retrieves a list of all cities. You can filter the results using query parameters.
+
+### Query Parameters:
+
+- **continent** (optional): Filter cities by continent (e.g., "Europe", "Asia").
+- **min_population** (optional): Filter cities by minimum population (e.g., 1000000).
+- **max_population** (optional): Filter cities by maximum population (e.g., 10000000).
+- **landmark** (optional): Filter cities by landmark (e.g., "Eiffel Tower", "Great Wall of China").
+
+**Response:**
+```json
+[
+  {
+    "name": "New York",
+    "country": "USA",
+    "population": 8419600
+  },
+  {
+    "name": "London",
+    "country": "UK",
+    "population": 8982000
+  }
+]
+```
+
+### Get City by Name
+
+```sh
+GET /cities/{city_name}
+```
+This endpoint retrieves data about a specific city based on its name.
+
+**Response:**
+```json
+{
+  "name": "New York",
+  "country": "USA",
+  "continent": "North America",
+  "population": 8419600,
+  "landmarks": ["Statue of Liberty", "Central Park"]
+}
+```
+
+## Running Tests
+
+To execute tests:
+
+```bash
+# Unit tests
+npm run test
+
 ```
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+For deployment, ensure that all environment variables are correctly set in your production environment. Build the application using:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Then, start the application in production mode:
 
-## Resources
+```bash
+npm run start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License.
+
+## Contact
+
+For support, open an issue on GitHub.
+
